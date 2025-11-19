@@ -70,8 +70,7 @@ class _PinputState extends State<Pinput>
   @override
   void initState() {
     super.initState();
-    _gestureDetectorBuilder =
-        _PinputSelectionGestureDetectorBuilder(state: this);
+    _gestureDetectorBuilder = _PinputSelectionGestureDetectorBuilder(state: this);
     if (widget.controller != null) {
       _recentControllerValue = widget.controller!.value;
       widget.controller!.addListener(_handleTextEditingControllerChanges);
@@ -139,7 +138,7 @@ class _PinputState extends State<Pinput>
   }
 
   void _maybeValidateForm() {
-    if (widget.pinputAutovalidateMode == PinputAutoValidateMode.onSubmit) {
+    if (widget.pinputAutovalidateMode == PinputAutovalidateMode.onSubmit) {
       _validator();
     }
   }
@@ -216,17 +215,12 @@ class _PinputState extends State<Pinput>
     }
   }
 
-  void _handleSelectionChanged(
-    TextSelection selection,
-    SelectionChangedCause? cause,
-  ) {
+  void _handleSelectionChanged(TextSelection selection, SelectionChangedCause? cause) {
     // Selecting part of the text is not allowed.
     final allSelected = selection.start == 0 && selection.end == _currentLength;
-    final lastCharSelected = selection.start == _currentLength - 1 &&
-        selection.end == _currentLength;
+    final lastCharSelected = selection.start == _currentLength - 1 && selection.end == _currentLength;
     if (!allSelected && !lastCharSelected) {
-      _effectiveController.selection =
-          TextSelection.collapsed(offset: _currentLength);
+      _effectiveController.selection = TextSelection.collapsed(offset: _currentLength);
     }
 
     switch (Theme.of(context).platform) {
@@ -341,46 +335,41 @@ class _PinputState extends State<Pinput>
       enabled: isEnabled,
       validator: _validator,
       initialValue: _effectiveController.text,
-      builder: (field) {
-        return MouseRegion(
-          cursor: _effectiveMouseCursor,
-          onEnter: (PointerEnterEvent event) => _handleHover(true),
-          onExit: (PointerExitEvent event) => _handleHover(false),
-          child: TextFieldTapRegion(
-            child: IgnorePointer(
-              ignoring: !isEnabled || !widget.useNativeKeyboard,
-              child: AnimatedBuilder(
-                animation: _effectiveController,
-                builder: (_, Widget? child) => Semantics(
-                  maxValueLength: widget.length,
-                  currentValueLength: _currentLength,
-                  enabled: isEnabled,
-                  onTap: widget.readOnly ? null : _semanticsOnTap,
-                  onDidGainAccessibilityFocus: handleDidGainAccessibilityFocus,
-                  onFocus: isEnabled
-                      ? () {
-                          if (_effectiveFocusNode.canRequestFocus &&
-                              !_effectiveFocusNode.hasFocus) {
-                            _effectiveFocusNode.requestFocus();
-                          } else if (!widget.readOnly) {
-                            _requestKeyboard();
-                          }
+      builder: (field) => MouseRegion(
+        cursor: _effectiveMouseCursor,
+        onEnter: (PointerEnterEvent event) => _handleHover(true),
+        onExit: (PointerExitEvent event) => _handleHover(false),
+        child: TextFieldTapRegion(
+          child: IgnorePointer(
+            ignoring: !isEnabled || !widget.useNativeKeyboard,
+            child: AnimatedBuilder(
+              animation: _effectiveController,
+              builder: (_, Widget? child) => Semantics(
+                maxValueLength: widget.length,
+                currentValueLength: _currentLength,
+                enabled: isEnabled,
+                onTap: widget.readOnly ? null : _semanticsOnTap,
+                onDidGainAccessibilityFocus: handleDidGainAccessibilityFocus,
+                onFocus: isEnabled
+                    ? () {
+                        if (_effectiveFocusNode.canRequestFocus && !_effectiveFocusNode.hasFocus) {
+                          _effectiveFocusNode.requestFocus();
+                        } else if (!widget.readOnly) {
+                          _requestKeyboard();
                         }
-                      : null,
-                  child: child,
-                ),
-                child: _gestureDetectorBuilder.buildGestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  child: Stack(
-                    alignment: Alignment.topCenter,
-                    children: [
-                      // the editable need to be the full size, otherwise the focus is not correct when getting the renderbox from the focus
-                      Positioned.fill(
-                        child: _buildEditable(textSelectionControls, field),
-                      ),
-                      _buildFields(),
-                    ],
-                  ),
+                      }
+                    : null,
+                child: child,
+              ),
+              child: _gestureDetectorBuilder.buildGestureDetector(
+                behavior: HitTestBehavior.translucent,
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                  children: [
+                    // the editable need to be the full size, otherwise the focus is not correct when getting the render box from the focus
+                    Positioned.fill(child: _buildEditable(textSelectionControls, field)),
+                    _buildFields(),
+                  ],
                 ),
               ),
             ),
@@ -443,10 +432,8 @@ class _PinputState extends State<Pinput>
           onSelectionChanged: _handleSelectionChanged,
           onSelectionHandleTapped: _handleSelectionHandleTapped,
           readOnly: widget.readOnly || !isEnabled || !widget.useNativeKeyboard,
-          selectionControls:
-              widget.toolbarEnabled ? textSelectionControls : null,
-          keyboardAppearance:
-              widget.keyboardAppearance ?? Theme.of(context).brightness,
+          selectionControls: widget.toolbarEnabled ? textSelectionControls : null,
+          keyboardAppearance: widget.keyboardAppearance ?? Theme.of(context).brightness,
           hintLocales: widget.hintLocales,
         ),
       ),
@@ -528,10 +515,7 @@ class _PinputState extends State<Pinput>
   }
 
   @protected
-  bool get showErrorState {
-    return hasError &&
-        (!hasFocus || widget.showErrorWhenFocused || widget.forceErrorState);
-  }
+  bool get showErrorState => hasError && (!hasFocus || widget.showErrorWhenFocused || widget.forceErrorState);
 
   Widget _buildError() {
     if (showErrorState) {
