@@ -1,3 +1,9 @@
+## 1.0.3
+
+* Refactor: Code cleanup and optimization in pinput.dart and pinput_state.dart.
+* Update: Improve code structure and maintainability.
+* Update: Example app improvements and updates.
+
 ## 1.0.2
 
 * Fix: Correct issue tracker URL in pubspec.yaml (changed from `.gitissues` to `/issues`).
