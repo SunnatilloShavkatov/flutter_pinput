@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_pinput/flutter_pinput.dart';
@@ -163,6 +165,9 @@ class SmsRetrieverImpl implements SmsRetriever {
 
   @override
   Future<String?> getSmsCode() async {
+    if (Platform.isIOS) {
+      return null;
+    }
     final signature = await smartAuth.getAppSignature();
     debugPrint('App Signature: $signature');
     final res = await smartAuth.getSmsWithUserConsentApi();
