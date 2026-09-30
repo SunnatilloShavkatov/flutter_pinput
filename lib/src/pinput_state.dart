@@ -80,8 +80,8 @@ class _PinputState extends State<Pinput>
     }
 
     _effectiveFocusNode.canRequestFocus = isEnabled && widget.useNativeKeyboard;
-    unawaited(_maybeInitSmartAuth());
-    unawaited(_maybeCheckClipboard());
+    _maybeInitSmartAuth().ignore();
+    _maybeCheckClipboard().ignore();
     _ambiguate(WidgetsBinding.instance)!.addObserver(this);
   }
 
@@ -203,7 +203,7 @@ class _PinputState extends State<Pinput>
     _controller?.dispose();
     _focusNode?.dispose();
     if (_smsRetriever != null) {
-      unawaited(_smsRetriever!.dispose());
+      _smsRetriever!.dispose().ignore();
     }
     _ambiguate(WidgetsBinding.instance)!.removeObserver(this);
     super.dispose();
@@ -265,7 +265,7 @@ class _PinputState extends State<Pinput>
   @override
   void didChangeAppLifecycleState(AppLifecycleState appLifecycleState) {
     if (appLifecycleState == AppLifecycleState.resumed) {
-      unawaited(_maybeCheckClipboard());
+      _maybeCheckClipboard().ignore();
     }
   }
 

@@ -71,7 +71,7 @@ class _PinputAnimatedCursorState extends State<_PinputAnimatedCursor> with Singl
   void _startCursorAnimation() {
     _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 450));
     _animationController.addStatusListener(_statusListener);
-    unawaited(_animationController.forward());
+    _animationController.forward().ignore();
   }
 
   Future<void> _statusListener(AnimationStatus status) async {

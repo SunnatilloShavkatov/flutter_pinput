@@ -39,7 +39,7 @@ class _PinputSelectionGestureDetectorBuilder extends TextSelectionGestureDetecto
         case TargetPlatform.fuchsia:
         case TargetPlatform.linux:
         case TargetPlatform.windows:
-          unawaited(Feedback.forLongPress(_state.context));
+          Feedback.forLongPress(_state.context).ignore();
       }
     }
   }
