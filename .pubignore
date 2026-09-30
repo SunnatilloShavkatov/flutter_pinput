@@ -1,48 +1,39 @@
-example/media/*
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.buildlog/
-.history
-.svn/
+# Publish only: lib/, example/, pubspec.yaml, README, CHANGELOG, LICENSE.
+# (.pubignore replaces .gitignore for `pub publish`, so generated/tooling files are listed here.)
 
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
+# Repo tooling / IDE
+.fvm/
+.fvmrc
 .idea/
+.vscode/
+*.iml
+.DS_Store
+analysis_options.yaml
+pubspec.lock
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
+# Tests
+test/
 
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# Build / generated
 .dart_tool/
+.packages
 .flutter-plugins
 .flutter-plugins-dependencies
-.packages
-.pub-cache/
-.pub/
+build/
+*.log
+**/GeneratedPluginRegistrant.*
+**/generated_plugin_registrant.*
+**/generated_plugins.cmake
+
+# Example: keep only lib/, pubspec.yaml, README.md
+example/media/
+example/analysis_options.yaml
 example/build/
-
-# Web related
-lib/generated_plugin_registrant.dart
-
-# Symbolication related
-app.*.symbols
-
-# Obfuscation related
-app.*.map.json
-
-# Android Studio will place build artifacts here
-example/android/app/debug
-example/android/app/profile
-example/android/app/release
-/build/
+example/android/
+example/ios/
+example/linux/
+example/macos/
+example/windows/
+example/web/
+example/test/
+example/pubspec.lock
