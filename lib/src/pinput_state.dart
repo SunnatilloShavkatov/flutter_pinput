@@ -112,7 +112,10 @@ class _PinputState extends State<Pinput>
 
       if (res != null && res.length == widget.length) {
         _effectiveController.setText(res);
-        return;
+      }
+      // Listen for multiple sms codes
+      if (_smsRetriever!.listenForMultipleSms) {
+        _listenForSmsCode().ignore();
       }
     } catch (e) {
       // Handle error - don't continue recursion on error
@@ -434,7 +437,6 @@ class _PinputState extends State<Pinput>
           readOnly: widget.readOnly || !isEnabled || !widget.useNativeKeyboard,
           selectionControls: widget.toolbarEnabled ? textSelectionControls : null,
           keyboardAppearance: widget.keyboardAppearance ?? Theme.of(context).brightness,
-          hintLocales: widget.hintLocales,
         ),
       ),
     );

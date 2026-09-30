@@ -7,7 +7,7 @@ import 'helpers/helpers.dart';
 void main() {
   testWidgets('Pins are displayed', (WidgetTester tester) async {
     const length = 4;
-    await tester.pumpApp(const Pinput(length: length));
+    await tester.pumpApp(const Pinput());
 
     expect(find.byType(Flexible), findsNWidgets(length));
     expect(find.byType(AnimatedContainer), findsNWidgets(length));
@@ -26,7 +26,6 @@ void main() {
 
     await tester.pumpApp(
       Pinput(
-        length: length,
         focusNode: focusNode,
         defaultPinTheme: defaultTheme,
         focusedPinTheme: focusedTheme,
@@ -184,7 +183,6 @@ void main() {
 
       await tester.pumpApp(
         Pinput(
-          length: 4,
           onCompleted: (value) {
             fieldValue = value;
             called++;
@@ -212,7 +210,6 @@ void main() {
 
       await tester.pumpApp(
         Pinput(
-          length: 4,
           controller: controller,
           onCompleted: (value) {
             fieldValue = value;

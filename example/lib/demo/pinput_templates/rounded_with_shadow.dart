@@ -49,7 +49,6 @@ class _RoundedWithShadowState extends State<RoundedWithShadow> {
     );
 
     return Pinput(
-      length: 4,
       controller: controller,
       focusNode: focusNode,
       defaultPinTheme: defaultPinTheme,

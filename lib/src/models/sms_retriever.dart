@@ -3,6 +3,9 @@ part of '../pinput.dart';
 /// An interface for retrieving sms code. Used for SMS autofill.
 /// You, as a developer should implement this interface.
 abstract class SmsRetriever {
+  /// Whether to listen for multiple sms codes.
+  bool get listenForMultipleSms;
+
   /// This method should return the sms code.
   Future<String?> getSmsCode();
 
@@ -17,18 +20,21 @@ abstract class SmsRetriever {
 //   final SmartAuth smartAuth;
 //
 //   @override
-//   Future<void> dispose() async {
-//     await smartAuth.removeUserConsentApiListener();
+//   Future<void> dispose() {
+//     return smartAuth.removeSmsListener();
 //   }
 //
 //   @override
 //   Future<String?> getSmsCode() async {
-//     final res = await smartAuth.getSmsWithUserConsentApi();
-//     if (res.hasData && res.requireData.code != null) {
-//       return res.requireData.code;
+//     final res = await smartAuth.getSmsCode();
+//     if (res.succeed && res.codeFound) {
+//       return res.code!;
 //     }
 //     return null;
 //   }
+//
+//   @override
+//   bool get listenForMultipleSms => false;
 // }
 //
 // class SmartAuthExample extends StatefulWidget {

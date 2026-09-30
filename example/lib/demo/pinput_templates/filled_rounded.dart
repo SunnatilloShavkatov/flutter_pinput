@@ -27,7 +27,6 @@ class _FilledRoundedPinPutState extends State<FilledRoundedPinPut> {
 
   @override
   Widget build(BuildContext context) {
-    const length = 4;
     const borderColor = Color.fromRGBO(114, 178, 238, 1);
     const errorColor = Color.fromRGBO(255, 234, 238, 1);
     const fillColor = Color.fromRGBO(222, 231, 240, .57);
@@ -45,7 +44,6 @@ class _FilledRoundedPinPutState extends State<FilledRoundedPinPut> {
     return SizedBox(
       height: 68,
       child: Pinput(
-        length: length,
         controller: controller,
         focusNode: focusNode,
         defaultPinTheme: defaultPinTheme,

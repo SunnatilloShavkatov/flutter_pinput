@@ -37,7 +37,6 @@ class _FilledState extends State<Filled> {
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
       child: Pinput(
-        length: 4,
         controller: controller,
         focusNode: focusNode,
         separatorBuilder: (index) => Container(height: 64, width: 1, color: Colors.white),

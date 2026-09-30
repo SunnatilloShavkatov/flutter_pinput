@@ -114,7 +114,6 @@ class Pinput extends StatefulWidget {
     this.pinputAutovalidateMode = PinputAutovalidateMode.onSubmit,
     this.scrollPadding = const EdgeInsets.all(20),
     this.contextMenuBuilder = _defaultContextMenuBuilder,
-    this.hintLocales,
     super.key,
   }) : assert(obscuringCharacter.length == 1, 'obscuringCharacter must be a single character'),
        assert(length > 0, 'length must be greater than 0'),
@@ -166,7 +165,6 @@ class Pinput extends StatefulWidget {
     this.pinputAutovalidateMode = PinputAutovalidateMode.onSubmit,
     this.scrollPadding = const EdgeInsets.all(20),
     this.contextMenuBuilder = _defaultContextMenuBuilder,
-    this.hintLocales,
     super.key,
   }) : assert(length > 0, ''),
        assert(textInputAction != TextInputAction.newline, 'Pinput is not multiline'),
@@ -454,9 +452,6 @@ class Pinput extends StatefulWidget {
   /// See also: [EditableText.onTapUpOutside].
   final TapRegionUpCallback? onTapUpOutside;
 
-  /// {@macro flutter.services.TextInputConfiguration.hintLocales}
-  final List<Locale>? hintLocales;
-
   static Widget _defaultContextMenuBuilder(BuildContext context, EditableTextState editableTextState) =>
       AdaptiveTextSelectionToolbar.editableText(editableTextState: editableTextState);
 
@@ -583,7 +578,6 @@ class Pinput extends StatefulWidget {
           contextMenuBuilder,
           defaultValue: _defaultContextMenuBuilder,
         ),
-      )
-      ..add(DiagnosticsProperty<List<Locale>?>('hintLocales', hintLocales, defaultValue: null));
+      );
   }
 }
