@@ -25,7 +25,10 @@ build/
 **/generated_plugin_registrant.*
 **/generated_plugins.cmake
 
-# Example: keep only lib/, pubspec.yaml, README.md
+# Example: keep only lib/main.dart + pubspec.yaml (pub.dev shows main.dart)
+example/README.md
+example/lib/demo/
+example/lib/test_examples.dart
 example/media/
 example/analysis_options.yaml
 example/build/

@@ -3,9 +3,6 @@ part of '../pinput.dart';
 /// An interface for retrieving sms code. Used for SMS autofill.
 /// You, as a developer should implement this interface.
 abstract class SmsRetriever {
-  /// Whether to listen for multiple sms codes.
-  bool get listenForMultipleSms;
-
   /// This method should return the sms code.
   Future<String?> getSmsCode();
 

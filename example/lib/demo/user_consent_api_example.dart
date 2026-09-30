@@ -8,9 +8,6 @@ class SmsRetrieverImpl implements SmsRetriever {
   final SmartAuth smartAuth;
 
   @override
-  bool get listenForMultipleSms => false;
-
-  @override
   Future<void> dispose() => smartAuth.removeUserConsentApiListener();
 
   @override

@@ -113,12 +113,7 @@ class _PinputState extends State<Pinput>
       if (res != null && res.length == widget.length) {
         _effectiveController.setText(res);
       }
-      // Listen for multiple sms codes
-      if (_smsRetriever!.listenForMultipleSms) {
-        _listenForSmsCode().ignore();
-      }
     } catch (e) {
-      // Handle error - don't continue recursion on error
       debugPrint('SMS retriever error: $e');
     }
   }
@@ -295,9 +290,7 @@ class _PinputState extends State<Pinput>
     assert(debugCheckHasMaterial(context), 'Pinput requires MaterialApp or Theme.');
     assert(debugCheckHasMaterialLocalizations(context), 'Pinput requires a Localizations widget to display text.');
     assert(debugCheckHasDirectionality(context), 'Pinput requires a Directionality widget to display text.');
-    final isDense = widget.mainAxisAlignment == MainAxisAlignment.center;
-
-    return isDense ? IntrinsicWidth(child: _buildPinput()) : _buildPinput();
+    return _buildPinput();
   }
 
   Widget _buildPinput() {
@@ -493,6 +486,7 @@ class _PinputState extends State<Pinput>
       }).toList(),
     );
     return Center(
+      widthFactor: widget.mainAxisAlignment == MainAxisAlignment.center ? 1 : null,
       child: AnimatedBuilder(
         animation: Listenable.merge(<Listenable>[_effectiveFocusNode, _effectiveController]),
         builder: (BuildContext context, Widget? child) {

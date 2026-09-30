@@ -3,7 +3,7 @@
 * Sync with upstream pinput 6.0.2.
 * Fix: Removed `hintLocales` parameter (as in upstream pinput 6.0.1).
 * Breaking: default `length` is `4` again (was `6`).
-* Breaking: `SmsRetriever.listenForMultipleSms` restored; implementers must override it.
+* Perf: Dropped `IntrinsicWidth` (extra layout pass); layout is unchanged, verified across parent constraints.
 * Fix: Resolved pub.dev static analysis warnings (`document_ignores`, `unnecessary_unawaited`).
 
 ## 1.0.3
