@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:material_ui/material_ui.dart';
 
 class OtpPage extends StatefulWidget {
-  const OtpPage(this.pinPut, {super.key});
+  const new(this.pinPut, {super.key});
   final Widget pinPut;
 
   @override
@@ -45,7 +45,7 @@ class _OtpPageState extends State<OtpPage> with AutomaticKeepAliveClientMixin {
 }
 
 class OtpHeader extends StatelessWidget {
-  const OtpHeader({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context) => Column(

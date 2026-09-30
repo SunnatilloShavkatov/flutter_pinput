@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_pinput/flutter_pinput.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:smart_auth/smart_auth.dart';
 
 void main() {
@@ -33,7 +33,7 @@ void main() {
 /// This is the basic usage of Pinput
 /// For more examples check out the demo directory
 class PinputExample extends StatefulWidget {
-  const PinputExample({super.key});
+  const new({super.key});
 
   @override
   State<PinputExample> createState() => _PinputExampleState();
@@ -154,7 +154,7 @@ class _PinputExampleState extends State<PinputExample> {
 /// You, as a developer should implement this interface.
 /// You can use any package to retrieve the SMS code. in this example we are using SmartAuth
 class SmsRetrieverImpl implements SmsRetriever {
-  const SmsRetrieverImpl(this.smartAuth);
+  const new(this.smartAuth);
 
   final SmartAuth smartAuth;
 

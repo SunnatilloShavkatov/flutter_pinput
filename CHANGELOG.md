@@ -1,10 +1,15 @@
-## 1.0.4
+## 2.0.0
 
+* **Breaking:** Migrated from `package:flutter/material.dart` and `package:flutter/cupertino.dart` to the decoupled
+  [`material_ui`](https://pub.dev/packages/material_ui) and [`cupertino_ui`](https://pub.dev/packages/cupertino_ui) packages.
+  `Pinput` must now be used under a `MaterialApp` / `Theme` from `material_ui`; see the migration guide in the README.
+* **Breaking:** Minimum SDK raised to Dart `3.13` / Flutter `3.47`. Stay on `1.0.3` for older Flutter versions.
+* Breaking: Removed `hintLocales` parameter (as in upstream pinput 6.0.1).
 * Sync with upstream pinput 6.0.2.
-* Fix: Removed `hintLocales` parameter (as in upstream pinput 6.0.1).
-* Breaking: default `length` is `4` again (was `6`).
 * Perf: Dropped `IntrinsicWidth` (extra layout pass); layout is unchanged, verified across parent constraints.
 * Fix: Resolved pub.dev static analysis warnings (`document_ignores`, `unnecessary_unawaited`).
+* Chore: Published package now ships only `example/lib/main.dart` (archive 26 KB -> 21 KB).
+* Chore: Constructors use the new `new` syntax.
 
 ## 1.0.3
 

@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_pinput/flutter_pinput.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'helpers/helpers.dart';
 
 void main() {
   testWidgets('Pins are displayed', (WidgetTester tester) async {
-    const length = 4;
+    const length = 6;
     await tester.pumpApp(const Pinput());
 
     expect(find.byType(Flexible), findsNWidgets(length));
@@ -15,7 +15,7 @@ void main() {
   });
 
   testWidgets('Should properly handle states', (WidgetTester tester) async {
-    const length = 4;
+    const length = 6;
     final focusNode = FocusNode();
     const defaultTheme = PinTheme(decoration: BoxDecoration(color: Colors.red));
     final focusedTheme = defaultTheme.copyDecorationWith(color: Colors.greenAccent.withValues(alpha: .9));
@@ -193,8 +193,8 @@ void main() {
       expect(fieldValue, isNull);
       expect(called, 0);
 
-      await tester.enterText(find.byType(EditableText), '1234');
-      expect(fieldValue, equals('1234'));
+      await tester.enterText(find.byType(EditableText), '123456');
+      expect(fieldValue, equals('123456'));
       expect(called, 1);
 
       fieldValue = null;
@@ -221,14 +221,14 @@ void main() {
       expect(fieldValue, isNull);
       expect(called, 0);
 
-      controller.setText('1234');
+      controller.setText('123456');
       await tester.pump();
-      expect(fieldValue, equals('1234'));
+      expect(fieldValue, equals('123456'));
       expect(called, 1);
 
       controller.clear();
       await tester.pump();
-      expect(fieldValue, equals('1234'));
+      expect(fieldValue, equals('123456'));
       expect(called, 1);
 
       fieldValue = null;
@@ -236,7 +236,7 @@ void main() {
       expect(fieldValue, isNull);
       expect(called, 1);
 
-      controller.setText('12345');
+      controller.setText('1234567');
       await tester.pump();
       expect(fieldValue, isNull);
       expect(called, 1);

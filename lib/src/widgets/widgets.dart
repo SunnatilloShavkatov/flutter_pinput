@@ -5,7 +5,7 @@ part of '../pinput.dart';
 typedef JustIndexedWidgetBuilder = Widget Function(int index);
 
 class _PinputFormField extends FormField<String> {
-  const _PinputFormField({
+  const new({
     required super.validator,
     required super.enabled,
     required super.initialValue,
@@ -14,7 +14,7 @@ class _PinputFormField extends FormField<String> {
 }
 
 class _SeparatedRaw extends StatelessWidget {
-  const _SeparatedRaw({required this.children, required this.mainAxisAlignment, this.separatorBuilder});
+  const new({required this.children, required this.mainAxisAlignment, this.separatorBuilder});
 
   final List<Widget> children;
   final MainAxisAlignment mainAxisAlignment;
@@ -40,7 +40,7 @@ class _SeparatedRaw extends StatelessWidget {
 }
 
 class _PinputCursor extends StatelessWidget {
-  const _PinputCursor({required this.textStyle, required this.cursor});
+  const new({required this.textStyle, required this.cursor});
 
   final Widget? cursor;
   final TextStyle? textStyle;
@@ -50,7 +50,7 @@ class _PinputCursor extends StatelessWidget {
 }
 
 class _PinputAnimatedCursor extends StatefulWidget {
-  const _PinputAnimatedCursor({required this.textStyle, required this.cursor});
+  const new({required this.textStyle, required this.cursor});
 
   final Widget? cursor;
   final TextStyle? textStyle;

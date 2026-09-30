@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_pinput/flutter_pinput.dart';
+import 'package:material_ui/material_ui.dart';
 
 class Formatter extends TextInputFormatter {
   @override
@@ -13,7 +13,7 @@ class Formatter extends TextInputFormatter {
 }
 
 class Example extends StatefulWidget {
-  const Example({super.key});
+  const new({super.key});
 
   @override
   State<Example> createState() => _ExampleState();
@@ -40,7 +40,7 @@ class _ExampleState extends State<Example> {
 }
 
 class ErrorStateExample extends StatefulWidget {
-  const ErrorStateExample({super.key});
+  const new({super.key});
 
   @override
   State<ErrorStateExample> createState() => _ErrorStateExampleState();
@@ -59,7 +59,7 @@ class _ErrorStateExampleState extends State<ErrorStateExample> {
 }
 
 class HeightExample extends StatelessWidget {
-  const HeightExample({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context) {

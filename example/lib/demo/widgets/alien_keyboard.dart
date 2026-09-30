@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_pinput/flutter_pinput.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:material_ui/material_ui.dart';
 
 class AlienKeyboard extends StatelessWidget {
-  const AlienKeyboard({super.key, required this.controller});
+  const new({super.key, required this.controller});
 
   final TextEditingController controller;
 
@@ -68,7 +68,7 @@ class AlienKeyboard extends StatelessWidget {
 }
 
 class CircularButton extends StatelessWidget {
-  const CircularButton({super.key, this.onTap, this.text, this.size});
+  const new({super.key, this.onTap, this.text, this.size});
 
   final VoidCallback? onTap;
   final String? text;

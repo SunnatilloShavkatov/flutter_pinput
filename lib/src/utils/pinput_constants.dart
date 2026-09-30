@@ -2,13 +2,13 @@ part of '../pinput.dart';
 
 /// The constant values for Pinput
 final class PinputConstants {
-  const PinputConstants._();
+  const new _();
 
   /// The default value [Pinput.animationDuration]
   static const Duration _animationDuration = Duration(milliseconds: 180);
 
   /// The default value [Pinput.length]
-  static const int _defaultLength = 4;
+  static const int _defaultLength = 6;
 
   static const SizedBox _defaultSeparator = SizedBox(width: 8);
 

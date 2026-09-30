@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_pinput/flutter_pinput.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:smart_auth/smart_auth.dart';
 
 class SmsRetrieverImpl implements SmsRetriever {
-  const SmsRetrieverImpl(this.smartAuth);
+  const new(this.smartAuth);
 
   final SmartAuth smartAuth;
 
@@ -20,7 +20,7 @@ class SmsRetrieverImpl implements SmsRetriever {
 }
 
 class SmsRetrieverApiExample extends StatefulWidget {
-  const SmsRetrieverApiExample({super.key});
+  const new({super.key});
 
   @override
   State<SmsRetrieverApiExample> createState() => _SmsRetrieverApiExampleState();

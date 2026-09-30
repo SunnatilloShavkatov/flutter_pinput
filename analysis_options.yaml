@@ -1,1 +1,7 @@
+analyzer:
+  exclude:
+    - build/**
 include: package:analysis_lints/analysis_options.yaml
+
+formatter:
+  page_width: 120

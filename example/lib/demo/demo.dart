@@ -1,7 +1,8 @@
 import 'dart:math';
 import 'dart:ui';
-import 'package:flutter/material.dart';
+
 import 'package:google_fonts/google_fonts.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:pinput_example/demo/pages/gallery_page.dart';
 
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
@@ -13,7 +14,7 @@ class MyCustomScrollBehavior extends MaterialScrollBehavior {
 void main() => runApp(const AppView());
 
 class AppView extends StatefulWidget {
-  const AppView({super.key});
+  const new({super.key});
 
   @override
   State<AppView> createState() => _AppViewState();

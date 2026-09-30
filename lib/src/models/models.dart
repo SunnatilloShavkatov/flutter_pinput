@@ -27,7 +27,7 @@ enum PinItemStateType {
 /// A class that represents the state of a pin item.
 class PinItemState {
   /// Creates a new instance of [PinItemState].
-  const PinItemState({required this.value, required this.index, required this.type});
+  const new({required this.value, required this.index, required this.type});
 
   /// The value of the individual pin item.
   final String value;
@@ -40,7 +40,7 @@ class PinItemState {
 }
 
 class _PinItemBuilder {
-  const _PinItemBuilder({required this.itemBuilder});
+  const new({required this.itemBuilder});
 
   final PinItemWidgetBuilder itemBuilder;
 }

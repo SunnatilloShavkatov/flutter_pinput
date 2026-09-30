@@ -1,4 +1,4 @@
-package ge.fman.pinput_example
+package uz.pinput_example
 
 import io.flutter.embedding.android.FlutterActivity
 

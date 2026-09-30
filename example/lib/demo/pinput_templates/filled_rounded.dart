@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_pinput/flutter_pinput.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:material_ui/material_ui.dart';
 
 class FilledRoundedPinPut extends StatefulWidget {
-  const FilledRoundedPinPut({super.key});
+  const new({super.key});
 
   @override
   State<FilledRoundedPinPut> createState() => _FilledRoundedPinPutState();

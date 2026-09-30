@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class AllPinput extends StatefulWidget {
-  const AllPinput(this.pinPuts, this.colors, {super.key});
+  const new(this.pinPuts, this.colors, {super.key});
 
   final List<Widget> pinPuts;
   final List<List<Color>> colors;

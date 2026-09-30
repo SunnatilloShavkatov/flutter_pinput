@@ -1,13 +1,12 @@
-import 'dart:async';
-import 'dart:math';
-import 'dart:ui';
+import 'dart:math' show max;
+import 'dart:ui' show BoxHeightStyle, BoxWidthStyle;
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:material_ui/material_ui.dart';
 
 part 'models/models.dart';
 
@@ -51,7 +50,7 @@ part 'widgets/widgets.dart';
 /// - Beautiful [Examples](https://github.com/Tkko/Flutter_PinPut/tree/master/example/lib/demo)
 class Pinput extends StatefulWidget {
   /// Creates a PinPut widget
-  const Pinput({
+  const new({
     this.length = PinputConstants._defaultLength,
     this.smsRetriever,
     this.defaultPinTheme,
@@ -122,7 +121,7 @@ class Pinput extends StatefulWidget {
 
   /// Creates a PinPut widget with custom pin item builder
   /// This gives you full control over the pin item widget
-  Pinput.builder({
+  new builder({
     required PinItemWidgetBuilder builder,
     this.smsRetriever,
     this.length = PinputConstants._defaultLength,

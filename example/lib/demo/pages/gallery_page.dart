@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:pinput_example/demo/demo.dart';
 import 'package:pinput_example/demo/pages/all_pinputs_page.dart';
 import 'package:pinput_example/demo/pages/otp_page.dart';
@@ -9,7 +9,7 @@ import 'package:pinput_example/demo/pinput_templates/rounded_with_cursor.dart';
 import 'package:pinput_example/demo/pinput_templates/rounded_with_shadow.dart';
 
 class GalleryPage extends StatefulWidget {
-  const GalleryPage({super.key});
+  const new({super.key});
 
   @override
   GalleryPageState createState() => GalleryPageState();

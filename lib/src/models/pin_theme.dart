@@ -5,7 +5,7 @@ part of '../pinput.dart';
 class PinTheme {
   /// Theme of the individual pin items for following states:
   /// default, focused pin, submitted pin, following pin, disabled pin and error pin
-  const PinTheme({
+  const new({
     this.width,
     this.height,
     this.margin,
