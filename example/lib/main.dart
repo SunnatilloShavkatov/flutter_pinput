@@ -1,5 +1,3 @@
-// ignore_for_file: discarded_futures
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -53,7 +51,7 @@ class _PinputExampleState extends State<PinputExample> {
     // On web, disable the browser's context menu since this example uses a custom
     // Flutter-rendered context menu.
     if (kIsWeb) {
-      BrowserContextMenu.disableContextMenu();
+      BrowserContextMenu.disableContextMenu().ignore();
     }
     formKey = GlobalKey<FormState>();
     pinController = TextEditingController();
@@ -66,7 +64,7 @@ class _PinputExampleState extends State<PinputExample> {
   @override
   void dispose() {
     if (kIsWeb) {
-      BrowserContextMenu.enableContextMenu();
+      BrowserContextMenu.enableContextMenu().ignore();
     }
     pinController.dispose();
     focusNode.dispose();
