@@ -12,8 +12,8 @@ part of '../pinput.dart';
 /// ```
 ///
 extension PinputControllerExt on TextEditingController {
-  /// The length of the Pinput value
-  int get length => text.length;
+  /// The length of the Pinput value, in characters (grapheme clusters)
+  int get length => text.characters.length;
 
   /// Sets Pinput value
   void setText(String pin) {
@@ -26,14 +26,13 @@ extension PinputControllerExt on TextEditingController {
     if (text.isEmpty) {
       return;
     }
-    final pin = text.substring(0, length - 1);
-    text = pin;
+    text = text.characters.skipLast(1).string;
     moveCursorToEnd();
   }
 
   /// Appends character at the end of the Pinput
   void append(String s, int maxLength) {
-    if (length == maxLength) {
+    if (length >= maxLength) {
       return;
     }
     text = '$text$s';
@@ -42,6 +41,6 @@ extension PinputControllerExt on TextEditingController {
 
   /// Moves cursor at the end
   void moveCursorToEnd() {
-    selection = TextSelection.collapsed(offset: length);
+    selection = TextSelection.collapsed(offset: text.length);
   }
 }

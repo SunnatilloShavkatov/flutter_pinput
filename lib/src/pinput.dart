@@ -1,3 +1,4 @@
+import 'dart:async' show Timer;
 import 'dart:math' show max;
 import 'dart:ui' show BoxHeightStyle, BoxWidthStyle;
 
@@ -152,7 +153,7 @@ class Pinput extends StatefulWidget {
     this.keyboardAppearance,
     this.inputFormatters = const [],
     this.textInputAction,
-    this.autofillHints,
+    this.autofillHints = const [AutofillHints.oneTimeCode],
     this.selectionControls,
     this.restorationId,
     this.onClipboardFound,

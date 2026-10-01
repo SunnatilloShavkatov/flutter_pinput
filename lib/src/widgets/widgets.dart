@@ -59,38 +59,31 @@ class _PinputAnimatedCursor extends StatefulWidget {
   State<_PinputAnimatedCursor> createState() => _PinputAnimatedCursorState();
 }
 
-class _PinputAnimatedCursorState extends State<_PinputAnimatedCursor> with SingleTickerProviderStateMixin {
-  late final AnimationController _animationController;
+// Blinks on a timer (like EditableText's caret) instead of a repeating AnimationController,
+// so no frames are scheduled between blinks and `WidgetTester.pumpAndSettle` can settle.
+class _PinputAnimatedCursorState extends State<_PinputAnimatedCursor> {
+  static const Duration _blinkHalfPeriod = Duration(milliseconds: 500);
+  static const Duration _fadeDuration = Duration(milliseconds: 250);
+
+  late final Timer _timer;
+  bool _visible = true;
 
   @override
   void initState() {
     super.initState();
-    _startCursorAnimation();
-  }
-
-  void _startCursorAnimation() {
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 450));
-    _animationController.addStatusListener(_statusListener);
-    _animationController.forward().ignore();
-  }
-
-  Future<void> _statusListener(AnimationStatus status) async {
-    if (status == AnimationStatus.completed) {
-      await _animationController.repeat(reverse: true);
-    }
+    _timer = Timer.periodic(_blinkHalfPeriod, (_) => setState(() => _visible = !_visible));
   }
 
   @override
   void dispose() {
-    _animationController
-      ..removeStatusListener(_statusListener)
-      ..dispose();
+    _timer.cancel();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) => FadeTransition(
-    opacity: _animationController,
+  Widget build(BuildContext context) => AnimatedOpacity(
+    opacity: _visible ? 1 : 0,
+    duration: _fadeDuration,
     child: _PinputCursor(textStyle: widget.textStyle, cursor: widget.cursor),
   );
 }

@@ -297,4 +297,141 @@ void main() {
     await tester.testTextInput.receiveAction(TextInputAction.done);
     expect(fieldValue, equals('123'));
   });
+
+  group('autofillHints defaults to oneTimeCode', () {
+    testWidgets('Pinput', (WidgetTester tester) async {
+      await tester.pumpApp(const Pinput());
+
+      final editable = tester.widget<EditableText>(find.byType(EditableText));
+      expect(editable.autofillHints, [AutofillHints.oneTimeCode]);
+    });
+
+    testWidgets('Pinput.builder', (WidgetTester tester) async {
+      await tester.pumpApp(Pinput.builder(builder: (_, state) => Text(state.value)));
+
+      final editable = tester.widget<EditableText>(find.byType(EditableText));
+      expect(editable.autofillHints, [AutofillHints.oneTimeCode]);
+    });
+  });
+
+  testWidgets('pumpAndSettle settles while the animated cursor is shown', (WidgetTester tester) async {
+    await tester.pumpApp(const Pinput(autofocus: true));
+
+    await tester.pumpAndSettle();
+    expect(find.text('|'), findsOneWidget);
+  });
+
+  group('Multi code unit characters', () {
+    testWidgets('each character fills exactly one pin', (WidgetTester tester) async {
+      final controller = TextEditingController();
+      String? completed;
+      await tester.pumpApp(
+        Pinput(
+          length: 3,
+          controller: controller,
+          keyboardType: TextInputType.text,
+          onCompleted: (value) => completed = value,
+        ),
+      );
+
+      controller.setText('a😀b');
+      await tester.pump();
+
+      expect(find.text('a'), findsOneWidget);
+      expect(find.text('😀'), findsOneWidget);
+      expect(find.text('b'), findsOneWidget);
+      expect(completed, 'a😀b');
+      expect(controller.selection, const TextSelection.collapsed(offset: 4));
+    });
+
+    testWidgets('builder receives whole characters', (WidgetTester tester) async {
+      final controller = TextEditingController();
+      final values = <int, String>{};
+      await tester.pumpApp(
+        Pinput.builder(
+          length: 2,
+          controller: controller,
+          builder: (_, state) {
+            values[state.index] = state.value;
+            return Text(state.value);
+          },
+        ),
+      );
+
+      controller.setText('😀👍');
+      await tester.pump();
+
+      expect(values, {0: '😀', 1: '👍'});
+    });
+
+    test('controller extension works with characters', () {
+      final controller = TextEditingController()..setText('a😀');
+      expect(controller.length, 2);
+
+      controller.append('b', 2);
+      expect(controller.text, 'a😀');
+
+      controller.delete();
+      expect(controller.text, 'a');
+      expect(controller.selection, const TextSelection.collapsed(offset: 1));
+    });
+  });
+
+  group('smsRetriever', () {
+    testWidgets('fills the code', (WidgetTester tester) async {
+      final controller = TextEditingController();
+      await tester.pumpApp(Pinput(controller: controller, smsRetriever: _FakeSmsRetriever('123456')));
+      await tester.pump();
+
+      expect(controller.text, '123456');
+    });
+
+    testWidgets('replacing the retriever disposes the old one and listens to the new one', (WidgetTester tester) async {
+      final controller = TextEditingController();
+      final first = _FakeSmsRetriever(null);
+      final second = _FakeSmsRetriever('654321');
+
+      await tester.pumpApp(Pinput(controller: controller, smsRetriever: first));
+      await tester.pump();
+      await tester.pumpApp(Pinput(controller: controller, smsRetriever: second));
+      await tester.pump();
+
+      expect(first.disposed, isTrue);
+      expect(second.calls, 1);
+      expect(controller.text, '654321');
+    });
+
+    testWidgets('ignores a late code from a replaced retriever', (WidgetTester tester) async {
+      final controller = TextEditingController();
+      final first = _FakeSmsRetriever('111111', delay: const Duration(seconds: 1));
+      final second = _FakeSmsRetriever(null);
+
+      await tester.pumpApp(Pinput(controller: controller, smsRetriever: first));
+      await tester.pumpApp(Pinput(controller: controller, smsRetriever: second));
+      await tester.pump(const Duration(seconds: 2));
+
+      expect(controller.text, isEmpty);
+    });
+  });
+}
+
+class _FakeSmsRetriever implements SmsRetriever {
+  new(this.code, {this.delay = Duration.zero});
+
+  final String? code;
+  final Duration delay;
+  int calls = 0;
+  bool disposed = false;
+
+  @override
+  Future<String?> getSmsCode() async {
+    calls++;
+    if (delay > Duration.zero) {
+      await Future<void>.delayed(delay);
+    }
+    return code;
+  }
+
+  @override
+  Future<void> dispose() async => disposed = true;
 }

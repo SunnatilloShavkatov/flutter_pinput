@@ -55,9 +55,10 @@ class _PinItem extends StatelessWidget {
   PinTheme _pinThemeOrDefault(PinTheme? theme) => theme ?? _getDefaultPinTheme();
 
   Widget _buildFieldContent(int index, PinTheme pinTheme) {
-    final pin = state.pin;
-    final key = ValueKey<String>(index < pin.length ? pin[index] : '');
-    final isSubmittedPin = index < pin.length;
+    final pinLength = state._currentLength;
+    final value = state._charAt(index);
+    final key = ValueKey<String>(value);
+    final isSubmittedPin = index < pinLength;
 
     if (isSubmittedPin) {
       if (state.widget.obscureText && state.widget.obscuringWidget != null) {
@@ -65,13 +66,13 @@ class _PinItem extends StatelessWidget {
       }
 
       return Text(
-        state.widget.obscureText ? state.widget.obscuringCharacter : pin[index],
+        state.widget.obscureText ? state.widget.obscuringCharacter : value,
         key: key,
         style: pinTheme.textStyle,
       );
     }
 
-    final isActiveField = index == pin.length;
+    final isActiveField = index == pinLength;
     final focused = state._effectiveFocusNode.hasFocus || !state.widget.useNativeKeyboard;
     final shouldShowCursor = state.widget.showCursor && state.isEnabled && isActiveField && focused;
 

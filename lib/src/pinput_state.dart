@@ -65,6 +65,9 @@ class _PinputState extends State<Pinput>
 
   String get pin => _effectiveController.text;
 
+  /// The character (grapheme cluster) at [index], or an empty string if [index] is out of range.
+  String _charAt(int index) => pin.characters.skip(index).firstOrNull ?? '';
+
   bool get _completed => _currentLength == widget.length;
 
   @override
@@ -103,14 +106,16 @@ class _PinputState extends State<Pinput>
       return;
     }
 
+    final retriever = _smsRetriever!;
     try {
-      final res = await _smsRetriever!.getSmsCode();
+      final res = await retriever.getSmsCode();
 
-      if (!mounted) {
+      // Ignore late results from a retriever that was replaced or disposed meanwhile.
+      if (!mounted || !identical(retriever, _smsRetriever)) {
         return;
       }
 
-      if (res != null && res.length == widget.length) {
+      if (res != null && res.characters.length == widget.length) {
         _effectiveController.setText(res);
       }
     } catch (e) {
@@ -170,6 +175,12 @@ class _PinputState extends State<Pinput>
       widget.controller?.addListener(_handleTextEditingControllerChanges);
     }
 
+    if (widget.smsRetriever != oldWidget.smsRetriever) {
+      _smsRetriever?.dispose().ignore();
+      _smsRetriever = null;
+      _maybeInitSmartAuth().ignore();
+    }
+
     _effectiveFocusNode.canRequestFocus = _canRequestFocus;
   }
 
@@ -215,10 +226,13 @@ class _PinputState extends State<Pinput>
 
   void _handleSelectionChanged(TextSelection selection, SelectionChangedCause? cause) {
     // Selecting part of the text is not allowed.
-    final allSelected = selection.start == 0 && selection.end == _currentLength;
-    final lastCharSelected = selection.start == _currentLength - 1 && selection.end == _currentLength;
+    // Selection offsets are UTF-16 code units, so compare against `pin.length`, not the character count.
+    final end = pin.length;
+    final lastCharStart = end - (pin.characters.lastOrNull?.length ?? 0);
+    final allSelected = selection.start == 0 && selection.end == end;
+    final lastCharSelected = selection.start == lastCharStart && selection.end == end;
     if (!allSelected && !lastCharSelected) {
-      _effectiveController.selection = TextSelection.collapsed(offset: _currentLength);
+      _effectiveController.selection = TextSelection.collapsed(offset: end);
     }
 
     switch (Theme.of(context).platform) {
@@ -273,7 +287,7 @@ class _PinputState extends State<Pinput>
     }
     if (widget.onClipboardFound != null) {
       final clipboard = await _getClipboardOrEmpty();
-      if (mounted && clipboard.length == widget.length) {
+      if (mounted && clipboard.characters.length == widget.length) {
         widget.onClipboardFound!.call(clipboard);
       }
     }
@@ -478,7 +492,7 @@ class _PinputState extends State<Pinput>
         if (widget._builder != null) {
           return widget._builder!.itemBuilder.call(
             context,
-            PinItemState(value: pin.length > index ? pin[index] : '', index: index, type: _getState(index)),
+            PinItemState(value: _charAt(index), index: index, type: _getState(index)),
           );
         }
 

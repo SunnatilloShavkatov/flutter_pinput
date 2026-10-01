@@ -1,3 +1,14 @@
+## 2.0.1
+
+* Fix: `Pinput.builder` now defaults `autofillHints` to `[AutofillHints.oneTimeCode]`, matching `Pinput()`,
+  so iOS SMS code autofill works out of the box with the builder constructor too.
+* Fix: Characters made of several UTF-16 code units (emoji, combined characters) now fill exactly one pin
+  instead of being split across pins. `PinputControllerExt.length`, `delete()` and `append()` count characters too.
+* Fix: Replacing `smsRetriever` now disposes the old retriever and listens to the new one; a late code from
+  the replaced retriever is ignored.
+* Fix: The animated cursor no longer keeps scheduling frames, so `WidgetTester.pumpAndSettle` settles while
+  `Pinput` is focused. The cursor now blinks like the native caret instead of pulsing continuously.
+
 ## 2.0.0
 
 * **Breaking:** Migrated from `package:flutter/material.dart` and `package:flutter/cupertino.dart` to the decoupled
