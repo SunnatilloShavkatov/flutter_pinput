@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Flutter ${{ matrix.flutter }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        # 3.47.0 is the minimum version allowed by pubspec.yaml; `stable` catches upcoming breakages.
+        flutter: ['3.47.0', 'stable']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: ${{ matrix.flutter != 'stable' && matrix.flutter || '' }}
+          cache: true
+
+      - name: Install dependencies
+        run: |
+          flutter pub get
+          flutter pub get --directory example
+
+      # Formatter output can change between Dart versions, so only the latest stable is enforced.
+      - name: Check formatting
+        if: matrix.flutter == 'stable'
+        run: dart format --output=none --set-exit-if-changed lib test example/lib
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Test
+        run: flutter test
+
+      - name: Validate package
+        if: matrix.flutter == 'stable'
+        run: dart pub publish --dry-run

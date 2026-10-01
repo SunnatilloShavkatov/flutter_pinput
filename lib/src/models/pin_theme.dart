@@ -5,15 +5,7 @@ part of '../pinput.dart';
 class PinTheme {
   /// Theme of the individual pin items for following states:
   /// default, focused pin, submitted pin, following pin, disabled pin and error pin
-  const new({
-    this.width,
-    this.height,
-    this.margin,
-    this.padding,
-    this.textStyle,
-    this.decoration,
-    this.constraints,
-  });
+  const new({this.width, this.height, this.margin, this.padding, this.textStyle, this.decoration, this.constraints});
 
   /// width of each [Pinput] field
   final double? width;

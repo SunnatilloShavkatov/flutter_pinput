@@ -5,12 +5,8 @@ part of '../pinput.dart';
 typedef JustIndexedWidgetBuilder = Widget Function(int index);
 
 class _PinputFormField extends FormField<String> {
-  const new({
-    required super.validator,
-    required super.enabled,
-    required super.initialValue,
-    required super.builder,
-  }) : super(autovalidateMode: AutovalidateMode.disabled);
+  const new({required super.validator, required super.enabled, required super.initialValue, required super.builder})
+    : super(autovalidateMode: AutovalidateMode.disabled);
 }
 
 class _SeparatedRaw extends StatelessWidget {

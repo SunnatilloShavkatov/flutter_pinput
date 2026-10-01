@@ -380,7 +380,7 @@ void main() {
   group('smsRetriever', () {
     testWidgets('fills the code', (WidgetTester tester) async {
       final controller = TextEditingController();
-      await tester.pumpApp(Pinput(controller: controller, smsRetriever: _FakeSmsRetriever('123456')));
+      await tester.pumpApp(Pinput(controller: controller, smsRetriever: FakeSmsRetriever('123456')));
       await tester.pump();
 
       expect(controller.text, '123456');
@@ -388,8 +388,8 @@ void main() {
 
     testWidgets('replacing the retriever disposes the old one and listens to the new one', (WidgetTester tester) async {
       final controller = TextEditingController();
-      final first = _FakeSmsRetriever(null);
-      final second = _FakeSmsRetriever('654321');
+      final first = FakeSmsRetriever(null);
+      final second = FakeSmsRetriever('654321');
 
       await tester.pumpApp(Pinput(controller: controller, smsRetriever: first));
       await tester.pump();
@@ -403,8 +403,8 @@ void main() {
 
     testWidgets('ignores a late code from a replaced retriever', (WidgetTester tester) async {
       final controller = TextEditingController();
-      final first = _FakeSmsRetriever('111111', delay: const Duration(seconds: 1));
-      final second = _FakeSmsRetriever(null);
+      final first = FakeSmsRetriever('111111', delay: const Duration(seconds: 1));
+      final second = FakeSmsRetriever(null);
 
       await tester.pumpApp(Pinput(controller: controller, smsRetriever: first));
       await tester.pumpApp(Pinput(controller: controller, smsRetriever: second));
@@ -413,25 +413,4 @@ void main() {
       expect(controller.text, isEmpty);
     });
   });
-}
-
-class _FakeSmsRetriever implements SmsRetriever {
-  new(this.code, {this.delay = Duration.zero});
-
-  final String? code;
-  final Duration delay;
-  int calls = 0;
-  bool disposed = false;
-
-  @override
-  Future<String?> getSmsCode() async {
-    calls++;
-    if (delay > Duration.zero) {
-      await Future<void>.delayed(delay);
-    }
-    return code;
-  }
-
-  @override
-  Future<void> dispose() async => disposed = true;
 }
