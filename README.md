@@ -314,6 +314,20 @@ return Form(
 );
 ```
 
+### Digits only
+
+`keyboardType: TextInputType.number` only changes the keyboard — pasted or autofilled text can still contain
+other characters. A pasted `123-456` would become `123-45` and complete the Pinput with a wrong code.
+Filter the input to keep digits only:
+
+```
+import 'package:flutter/services.dart';
+
+return Pinput(
+  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+);
+```
+
 ## FAQ
 
 #### Autofill isn't working on iOS?

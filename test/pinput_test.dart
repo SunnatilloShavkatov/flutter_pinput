@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show DiagnosticPropertiesBuilder;
 import 'package:flutter_pinput/flutter_pinput.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
@@ -311,6 +312,26 @@ void main() {
 
       final editable = tester.widget<EditableText>(find.byType(EditableText));
       expect(editable.autofillHints, [AutofillHints.oneTimeCode]);
+    });
+  });
+
+  group('debugFillProperties', () {
+    List<DiagnosticsNode> describe(Pinput pinput) {
+      final builder = DiagnosticPropertiesBuilder();
+      pinput.debugFillProperties(builder);
+      return builder.properties;
+    }
+
+    test('hides every property that has its default value', () {
+      final shown = describe(const Pinput()).where((p) => !p.isFiltered(DiagnosticLevel.info)).map((p) => p.name);
+
+      expect(shown, isEmpty);
+    });
+
+    test('lists each property once', () {
+      final names = describe(const Pinput()).map((p) => p.name).toList();
+
+      expect(names.toSet().length, names.length);
     });
   });
 

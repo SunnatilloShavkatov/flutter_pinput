@@ -1,13 +1,5 @@
 part of 'pinput.dart';
 
-/// This allows a value of type T or T?
-/// to be treated as a value of type T?.
-///
-/// We use this so that APIs that have become
-/// non-nullable can still be used with `!` and `?`
-/// to support older versions of the API as well.
-T? _ambiguate<T>(T? value) => value;
-
 class _PinputState extends State<Pinput>
     with RestorationMixin, WidgetsBindingObserver, _PinputUtilsMixin
     implements TextSelectionGestureDetectorBuilderDelegate, AutofillClient {
@@ -85,7 +77,7 @@ class _PinputState extends State<Pinput>
     _effectiveFocusNode.canRequestFocus = isEnabled && widget.useNativeKeyboard;
     _maybeInitSmartAuth().ignore();
     _maybeCheckClipboard().ignore();
-    _ambiguate(WidgetsBinding.instance)!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   /// Android Autofill
@@ -181,7 +173,18 @@ class _PinputState extends State<Pinput>
       _maybeInitSmartAuth().ignore();
     }
 
+    if (widget.length < oldWidget.length) {
+      // Changing the controller here would notify listeners during build, so trim after the frame.
+      WidgetsBinding.instance.addPostFrameCallback((_) => _trimToLength());
+    }
+
     _effectiveFocusNode.canRequestFocus = _canRequestFocus;
+  }
+
+  void _trimToLength() {
+    if (mounted && _currentLength > widget.length) {
+      _effectiveController.setText(pin.characters.take(widget.length).string);
+    }
   }
 
   @override
@@ -214,7 +217,7 @@ class _PinputState extends State<Pinput>
     if (_smsRetriever != null) {
       _smsRetriever!.dispose().ignore();
     }
-    _ambiguate(WidgetsBinding.instance)!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -235,16 +238,8 @@ class _PinputState extends State<Pinput>
       _effectiveController.selection = TextSelection.collapsed(offset: end);
     }
 
-    switch (Theme.of(context).platform) {
-      case TargetPlatform.iOS:
-      case TargetPlatform.macOS:
-      case TargetPlatform.linux:
-      case TargetPlatform.windows:
-      case TargetPlatform.fuchsia:
-      case TargetPlatform.android:
-        if (cause == SelectionChangedCause.longPress || cause == SelectionChangedCause.drag) {
-          _editableText?.bringIntoView(selection.extent);
-        }
+    if (cause == SelectionChangedCause.longPress || cause == SelectionChangedCause.drag) {
+      _editableText?.bringIntoView(selection.extent);
     }
 
     switch (Theme.of(context).platform) {

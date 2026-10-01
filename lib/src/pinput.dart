@@ -166,7 +166,7 @@ class Pinput extends StatefulWidget {
     this.scrollPadding = const EdgeInsets.all(20),
     this.contextMenuBuilder = _defaultContextMenuBuilder,
     super.key,
-  }) : assert(length > 0, ''),
+  }) : assert(length > 0, 'length must be greater than 0'),
        assert(textInputAction != TextInputAction.newline, 'Pinput is not multiline'),
        _builder = _PinItemBuilder(itemBuilder: builder),
        defaultPinTheme = null,
@@ -482,14 +482,7 @@ class Pinput extends StatefulWidget {
       ..add(DiagnosticsProperty<VoidCallback?>('onLongPress', onLongPress, defaultValue: null))
       ..add(DiagnosticsProperty<Widget?>('preFilledWidget', preFilledWidget, defaultValue: null))
       ..add(DiagnosticsProperty<Widget?>('cursor', cursor, defaultValue: null))
-      ..add(
-        DiagnosticsProperty<JustIndexedWidgetBuilder?>(
-          'separatorBuilder',
-          separatorBuilder,
-          defaultValue: PinputConstants._defaultSeparator,
-        ),
-      )
-      ..add(DiagnosticsProperty<_PinItemBuilder>('_builder', _builder, defaultValue: null))
+      ..add(DiagnosticsProperty<JustIndexedWidgetBuilder?>('separatorBuilder', separatorBuilder, defaultValue: null))
       ..add(DiagnosticsProperty<Widget?>('obscuringWidget', obscuringWidget, defaultValue: null))
       ..add(
         DiagnosticsProperty<MainAxisAlignment>(
@@ -521,15 +514,13 @@ class Pinput extends StatefulWidget {
         ),
       )
       ..add(DiagnosticsProperty<Offset?>('slideTransitionBeginOffset', slideTransitionBeginOffset, defaultValue: null))
-      ..add(DiagnosticsProperty<bool>('enabled', enabled, defaultValue: true))
       ..add(DiagnosticsProperty<bool>('readOnly', readOnly, defaultValue: false))
       ..add(DiagnosticsProperty<bool>('obscureText', obscureText, defaultValue: false))
       ..add(DiagnosticsProperty<bool>('autofocus', autofocus, defaultValue: false))
-      ..add(DiagnosticsProperty<bool>('useNativeKeyboard', useNativeKeyboard, defaultValue: false))
+      ..add(DiagnosticsProperty<bool>('useNativeKeyboard', useNativeKeyboard, defaultValue: true))
       ..add(DiagnosticsProperty<bool>('toolbarEnabled', toolbarEnabled, defaultValue: true))
       ..add(DiagnosticsProperty<bool>('showCursor', showCursor, defaultValue: true))
       ..add(DiagnosticsProperty<String>('obscuringCharacter', obscuringCharacter, defaultValue: '•'))
-      ..add(DiagnosticsProperty<bool>('obscureText', obscureText, defaultValue: false))
       ..add(DiagnosticsProperty<bool>('enableSuggestions', enableSuggestions, defaultValue: true))
       ..add(
         DiagnosticsProperty<List<TextInputFormatter>>(
@@ -538,7 +529,7 @@ class Pinput extends StatefulWidget {
           defaultValue: const <TextInputFormatter>[],
         ),
       )
-      ..add(EnumProperty<TextInputAction>('textInputAction', textInputAction, defaultValue: TextInputAction.done))
+      ..add(EnumProperty<TextInputAction>('textInputAction', textInputAction, defaultValue: null))
       ..add(
         EnumProperty<TextCapitalization>(
           'textCapitalization',
@@ -547,8 +538,13 @@ class Pinput extends StatefulWidget {
         ),
       )
       ..add(DiagnosticsProperty<Brightness>('keyboardAppearance', keyboardAppearance, defaultValue: null))
-      ..add(DiagnosticsProperty<TextInputType>('keyboardType', keyboardType, defaultValue: TextInputType.number))
-      ..add(DiagnosticsProperty<Iterable<String>?>('autofillHints', autofillHints, defaultValue: null))
+      ..add(
+        DiagnosticsProperty<Iterable<String>?>(
+          'autofillHints',
+          autofillHints,
+          defaultValue: const [AutofillHints.oneTimeCode],
+        ),
+      )
       ..add(DiagnosticsProperty<TextSelectionControls?>('selectionControls', selectionControls, defaultValue: null))
       ..add(DiagnosticsProperty<String?>('restorationId', restorationId, defaultValue: null))
       ..add(

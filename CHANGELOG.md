@@ -8,6 +8,15 @@
   the replaced retriever is ignored.
 * Fix: The animated cursor no longer keeps scheduling frames, so `WidgetTester.pumpAndSettle` settles while
   `Pinput` is focused. The cursor now blinks like the native caret instead of pulsing continuously.
+* Fix: Decreasing `length` now trims a longer pin to the new length instead of keeping the extra characters.
+* Fix: `debugFillProperties` no longer lists `enabled`, `obscureText` and `keyboardType` twice, and reports the
+  real defaults of `useNativeKeyboard`, `textInputAction`, `separatorBuilder` and `autofillHints`.
+* Docs: README explains how to accept digits only with `FilteringTextInputFormatter.digitsOnly`.
+* Docs: Updated the `SmsRetriever` documentation and SmartAuth example to `smart_auth` 3.x.
+* Chore: Removed the legacy `_ambiguate` helper and a no-op platform `switch`.
+* Chore: Added GitHub Actions CI (format, analyze, test, publish dry-run on Flutter 3.47.0 and stable)
+  and tests for validation, input, keyboard, clipboard, SMS retriever and widget lifecycle.
+* Chore: Rewrote the 1.0.0 and 1.0.1 changelog entries from the git history.
 
 ## 2.0.0
 
@@ -37,9 +46,11 @@
 
 ## 1.0.1
 
-* Fix: Correct typo in documentation.
-* Update: Improve performance of data processing module.
+* Chore: Point `homepage`, `repository` and `issue_tracker` to this repository.
+* Chore: Removed files that only applied to the upstream repository (funding, issue templates, migration guide,
+  publish script).
 
 ## 1.0.0
 
-* TODO: Describe initial release.
+* Initial release of `flutter_pinput`, forked from [`pinput`](https://pub.dev/packages/pinput) 5.0.3.
+* Breaking: Removed `SmsRetriever.listenForMultipleSms`.

@@ -56,6 +56,16 @@ void main() {
     expect(focusNode.hasFocus, isTrue);
   });
 
+  testWidgets('trims the pin when length decreases', (WidgetTester tester) async {
+    final controller = TextEditingController(text: '123456');
+
+    await tester.pumpApp(Pinput(controller: controller));
+    await tester.pumpApp(Pinput(controller: controller, length: 4));
+
+    expect(controller.text, '1234');
+    expect(find.text('5'), findsNothing);
+  });
+
   testWidgets('restores the entered pin', (WidgetTester tester) async {
     await tester.pumpWidget(
       const MaterialApp(
