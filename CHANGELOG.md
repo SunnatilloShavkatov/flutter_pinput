@@ -1,3 +1,7 @@
+## 2.0.2
+
+* Chore: Bump `material_ui` to `^1.6.0` and `cupertino_ui` to `^1.1.2`.
+
 ## 2.0.1
 
 * Fix: `Pinput.builder` now defaults `autofillHints` to `[AutofillHints.oneTimeCode]`, matching `Pinput()`,
