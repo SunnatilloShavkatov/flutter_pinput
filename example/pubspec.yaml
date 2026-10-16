@@ -13,7 +13,7 @@ dependencies:
   flutter_pinput:
     path: ../
   smart_auth: ^3.2.0
-  material_ui: ^1.5.0
+  material_ui: ^1.7.0
   google_fonts: ^9.0.0
   cupertino_icons: ^2.0.0
 
